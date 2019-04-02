@@ -2,6 +2,15 @@
 
 @section('postcontent')
 <div class="container text-center" style="margin-top: 15px;">
+	<div class="row">
+	<div class="text-center col-md-offset-2 col-md-5">
+		@if(Session::has('message'))
+	    <div class="alert alert-danger">
+	         <p>{{ Session::get('message')}}</p>
+	    </div>
+		@endif  
+	</div>
+	</div>
 	<div class="row ">
 		<div class="col-md-10 text-left">
 

@@ -2,10 +2,21 @@
 
 @section('postcontent')
 <div class="container text-center" style="margin-top: 15px;">
+	<div class="row">
+	<div class="text-center col-md-offset-2 col-md-5">
+	@if(count($errors)>0)
+	    <div class="alert alert-danger">
+	        @foreach($errors->all() as $error )
+	            <p>{{ $error }}</p>
+	        @endforeach
+	    </div>
+	@endif
+	</div>
+	</div>
 	<div class="row ">
 		<div class="col-md-8 text-left">
 
-		  	<form class="form-horizontal" role="form" action="" method="post">
+		  	<form class="form-horizontal" role="form" action="{{ route('post.update',['id'=>$post->id]) }}" method="post">
 		  		<div class="form-group">
 			    <label for="" class="col-sm-2 control-label col-sm-offset-2"><span class="label label-primary">編輯</span></label>
 		  	  </div>

@@ -10,19 +10,22 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//遊客才能進入
 Route::group(['middleware'=>'guest'],function(){
 	Route::get('/', function () {
 	    return view('index');
 	});
-	Route::post('/','UserController@logIn')->name('login');
-	Route::get('/signup','UserController@getSignup');
-	Route::post('/signup','UserController@postSignup');
+	Route::post('/','UserController@logIn')->name('login');//登入頁面
+	Route::get('/signup','UserController@getSignup');//註冊頁面
+	Route::post('/signup','UserController@postSignup');//註冊處理頁
 });
 
 
 
-
+/*
+	prefix參數代表網址前面大家會有一樣的/admin/ 
+	middleware=>auth = 會員才能進入
+*/
 Route::group(['prefix'=>'admin'], function(){
 	Route::group(['middleware'=>'auth'],function(){
 		//Home頁面
@@ -39,6 +42,7 @@ Route::group(['prefix'=>'admin'], function(){
 		Route::patch('/member/{id}','UserController@update')->name('member.update');
 		//會員資料
 		Route::get('/member/{id}','UserController@show')->name('member.show');
+		//刪除會員
 		Route::get('/member/{id}/delete','UserController@showDelete')->name('member.delete.show');
 		Route::delete('/member/{id}','UserController@delete')->name('member.delete');
 		Route::get('/member/permission/list', function(){
@@ -63,17 +67,21 @@ Route::group(['prefix'=>'admin'], function(){
 Route::group(['prefix'=>'admin/post'], function(){
 	Route::group(['middleware'=>'auth'],function(){
 
-		//公告系統
+		//公告系統頁面
 		Route::get('/system', function(){
 			return view('post.system');
 		})->name('post.system');
-
+		//新增公告頁面
 		Route::get('/create','PostController@create')->name('post.create');
 		Route::post('/create','PostController@store')->name('post.store');
+		//管理公告頁面
 		Route::get('/list','PostController@list')->name('post.list');
 		//Route::get('/list/show','PostController@list')->name('post.list.show');
+		//刪除公告頁面
 		Route::delete('/list/{id}/delete','PostController@delete')->name('post.list.delete');
+		//編輯更新公告頁面
 		Route::get('/{id}/edit','PostController@edit')->name('post.edit');
+		Route::patch('/{id}','PostController@update')->name('post.update');
 	});	 
 });
 

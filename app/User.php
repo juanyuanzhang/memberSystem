@@ -39,6 +39,6 @@ class User extends Authenticatable
 
     public function posts() {
 
-    return $this->hasMany(Post::class);
+    return $this->hasMany(Post::class); //一個使用者可以很多POST
     } 
 }

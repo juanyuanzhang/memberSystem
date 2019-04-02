@@ -15,6 +15,7 @@ class CheckAdmin
      * @param  \Closure  $next
      * @return mixed
      */
+    //自訂middleware 會員的權限必須為1才能進入頁面
     public function handle($request, Closure $next)
     {
         if (Auth::user()->permission != 1 ) {

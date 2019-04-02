@@ -8,11 +8,14 @@ use Auth;
 
 class UserController extends Controller
 {
+
    public function logIn(Request $request){
    		$this->validate($request,[
    			'email'=>'email|required',
    			'password'=>'required',
-   		]);
+   		],
+        ['email.required' => 'Email is required',
+        'password.required'  => 'Password is required']);
 
    		if(Auth::attempt([
             'email'=>$request->input('email'),
@@ -21,12 +24,15 @@ class UserController extends Controller
             {
                 return  redirect('/admin/main');
             }
-         return redirect()->back();   
+         $message="帳號密碼錯誤!";
+         return redirect()->back()->with(['message'=>$message]); //使用session攜帶訊息
             
    }
+
    public function getSignup(){
    		return view('member.signup');
    }
+
    public function postSignup(Request $request){
    		$this->validate($request,[
    			'email'=>'email|required|unique:users',
@@ -34,9 +40,15 @@ class UserController extends Controller
    			'name'=>'required|max:50',
    			'cellphone'=>'required|digits:10',
    			'birthday'=>'required|date',	
-   		]);
+   		],
+      ['email.required' => 'Email is required',
+       'email.email' => 'Email is not a email',
+       'email.unique' => 'Email is exist',
+       'password.required'  => 'Password is required',
+       'name.required' => 'Name is required',
+       'cellphone.required'  => 'Cellphone is required',
+       'birthday.required' => 'Birthday is required']);
 
-         
         $user = new User([
             'email'=>$request->input('email'),
             'password'=>bcrypt($request->input('password')),
@@ -45,34 +57,46 @@ class UserController extends Controller
             'sex'=>$request->input('sex'),
             'birthday'=>$request->input('birthday'),
         ]);
-            $user->save();
+        $user->save();
             
          /*
          $user=$request->all();
          User::create($user);*/
-         Auth::login($user);
+         Auth::login($user);//註冊完直接登入
    		return redirect()->route('main'); 
    }
-   public function logout(){
 
-      Auth::logout();
+   public function logout(){
+      Auth::logout();//登出
       return redirect('/');
    }
 
    public function edit($id){
-
       $data = User::find($id);
       return view('member.edit',['data'=>$data]);
    }
 
    public function update(Request $request , $id ){
+      $this->validate($request,[
+          'password'=>'required|min:6',
+          'name'=>'required|max:50',
+          'cellphone'=>'required|digits:10',
+          'birthday'=>'required|date',  
+        ],
+        [
+         'password.required'  => 'Password is required',
+         'name.required' => 'Name is required',
+         'cellphone.required'  => 'Cellphone is required',
+         'birthday.required' => 'Birthday is required']);
+
       $data=$request->all();
       User::find($id)->update($data);
-      return redirect()->back();
+      $message="更新成功";
+      return redirect('/admin/member/'.$id)->with(['message'=>$message]);
    }
 
    public function show($id){
-      if(Auth::user()->id == $id){
+      if(Auth::user()->id == $id){ //確定是本人才能進入
       $data = User::find($id);
       return view('member.show',['data'=>$data]);
       }

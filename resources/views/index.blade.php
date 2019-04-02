@@ -3,8 +3,15 @@
 @section('content')
 <div class="container text-center">
 	<div class="row">
+		@if(count($errors)>0)
+		    <div class="alert alert-danger">
+		        @foreach($errors->all() as $error )
+		            <p>{{ $error }}</p>
+		        @endforeach
+		    </div>
+		@endif
 		@if(Session::has('message'))
-		    <div class="alert alert-info">
+		    <div class="alert alert-danger">
 		         <p>{{ Session::get('message')}}</p>
 		    </div>
 		@endif
@@ -27,5 +34,5 @@
 		</div>
 	</div>
 </div>
-	
+<p class="text-right">管理員帳號:abc@gmail.com / 密碼:123456</p>	
 @endsection

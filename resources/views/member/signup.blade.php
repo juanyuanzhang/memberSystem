@@ -1,6 +1,17 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="row">
+<div class="text-center col-md-offset-4 col-md-4">
+@if(count($errors)>0)
+    <div class="alert alert-danger">
+        @foreach($errors->all() as $error )
+            <p>{{ $error }}</p>
+        @endforeach
+    </div>
+@endif
+</div>
+</div>
 <div class="container text-center">
 	<div class="row">
 		<h1 style="font-weight:900;">會員註冊</h1>
@@ -9,31 +20,31 @@
 			  <div class="form-group">
 			    <label for="email" class="col-sm-4 control-label">Email:</label>
 			    <div class="col-sm-8">
-			    	<input type="email" class="form-control" id="email" name="email" placeholder="">
+			    	<input type="email" class="form-control" id="email" name="email" placeholder="" required>
 			    </div>
 		  	</div>
 			  <div class="form-group">
 			    <label for="password" class="col-sm-4 control-label">Password:</label>
 			    <div class="col-sm-8">
-			        <input type="password" class="form-control" id="password" name="password" placeholder="">
+			        <input type="password" class="form-control" id="password" name="password"  placeholder="" required>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="name" class="col-sm-4 control-label">Name:</label>
 			    <div class="col-sm-8">
-			        <input type="text" class="form-control" id="name" name="name" placeholder="">
+			        <input type="text" class="form-control" id="name" name="name" placeholder="" required>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="cellphone" class="col-sm-4 control-label">Cellphone:</label>
 			    <div class="col-sm-8">
-			        <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="">
+			        <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="" required>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="birthday" class="col-sm-4 control-label">Birthday:</label>
 			    <div class="col-sm-8">
-			        <input type="date" class="form-control" id="birthday" name="birthday" placeholder="">
+			        <input type="date" class="form-control" id="birthday" name="birthday" placeholder="" required>
 			    </div>
 			  </div>
 			  <div class="form-group">

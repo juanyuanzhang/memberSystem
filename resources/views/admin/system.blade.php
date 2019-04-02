@@ -4,12 +4,13 @@
 
 <div class="row">
 	<div class="col-md-offset-1 col-md-10">
-	<h1 style="font-weight:900; text-align:center; border-bottom:1px solid; padding-bottom:20px;">管理會員資料系統</h1>
-	@if(Session::has('message'))
+		<h1 style="font-weight:900; text-align:center; border-bottom:1px solid; padding-bottom:20px;">管理會員資料系統</h1>
+	<!--如果有訊息就顯示-->
+		@if(Session::has('message'))
 		    <div class="alert alert-info text-center">
 		         <p>{{ Session::get('message')}}</p>
 		    </div>
-	@endif
+		@endif
 	<div class="container text-center" style="margin-top: 15px;">
 	<div class="row ">
 		<div class="col-md-10 text-left">
@@ -37,7 +38,7 @@
 		      <td>{{ $data->cellphone }}</td>
 		      <td><div>@if(Auth::user()->id != $data->id)
 		      	<?php $id= $data->id ?>
-		  		<button class="btn btn-warning" data-toggle="modal" data-target="#delModal{{$id}}">Delete</button>
+		  		<button class="btn btn-warning" data-toggle="modal" data-target="#delModal{{$id}}">Delete</button> <!--bootstrap的提示框 詢問確認是否要刪除 -->
                       <div class="modal fade" id="delModal{{$id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                                 <div class="modal-content">
@@ -65,8 +66,6 @@
 		    @endforeach
 		  </tbody>
 		</table>
-		
-
 		</div>
 	</div>
 </div>

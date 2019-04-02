@@ -1,7 +1,16 @@
 @extends('member.system')
 
 @section('membercontent')
-	<div class="container text-center" style="margin-top: 15px;">
+<div class="container text-center" style="margin-top: 15px;">
+	<div class="row">
+		<div class="text-center  col-md-5">
+			@if(Session::has('message'))
+		    <div class="alert alert-info">
+		         <p>{{ Session::get('message')}}</p>
+		    </div>
+			@endif  
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-md-3 text-left">
 		  	<table class="table table-bordered table-hover " >
@@ -31,5 +40,5 @@
 			</table>
 		</div>
 	</div>
-	</div>
+</div>
 @endsection

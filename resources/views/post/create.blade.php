@@ -2,6 +2,17 @@
 
 @section('postcontent')
 <div class="container text-center" style="margin-top: 15px;">
+	<div class="row">
+	<div class="text-center col-md-offset-2 col-md-5">
+	@if(count($errors)>0)
+	    <div class="alert alert-danger">
+	        @foreach($errors->all() as $error )
+	            <p>{{ $error }}</p>
+	        @endforeach
+	    </div>
+	@endif
+	</div>
+	</div>
 	<div class="row ">
 		<div class="col-md-8 text-left">
 
@@ -12,7 +23,7 @@
 			  <div class="form-group">
 			    <label for="title" class="col-sm-2 control-label">Title</label>
 			    <div class="col-sm-10">
-			    	<input type="title" class="form-control" id="title" name="title" >
+			    	<input type="title" class="form-control" id="title" name="title" required>
 			    </div>
 		  	  </div>
 			  <div class="form-group">
